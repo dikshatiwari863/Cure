@@ -3,41 +3,15 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class MainPage {
-
-	WebDriver driver;
-
-	@FindBy(className = "go-btn")
-
-	WebElement goButton;
+public class MainPage extends LoginPage {
 
 	@FindBy(className = "quote-form")
 
 	WebElement getQuoteFormBox;
 
 	public MainPage(WebDriver driver) {
-
-		this.driver = driver;
-
-		PageFactory.initElements(driver, this);
-
-	}
-
-	// get the title of the page
-
-	public String getTitle() {
-
-		return driver.getTitle();
-	}
-
-	// click on go button
-
-	public void clickGoButton() {
-
-		goButton.click();
-
+		super(driver);
 	}
 
 	// check if the form is displayed
@@ -46,5 +20,7 @@ public class MainPage {
 
 		return getQuoteFormBox.isDisplayed();
 	}
+
+
 
 }
