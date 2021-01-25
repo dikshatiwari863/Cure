@@ -18,36 +18,70 @@ public class LoginTest {
 		String baseUrl = "http://www.cure.com/";
 		String expectedTitle = "CURE | Auto Insurance for New Jersey and Pennsylvania Drivers";
 		String expectedLoginPageTitle = "CURE | Manage CURE Account";
+		String expectedErrorMsg = "Invalid email address or password. Are you just trying to make a payment? CLICK HERE";
 
 		MainPage mainPage = new MainPage(driver);
 
 		driver.get(baseUrl);
 
-		if (mainPage.getTitle().contentEquals(expectedTitle)) {
-			// click on go button
-			mainPage.clickGoButton();
+		try {
 
-			if (mainPage.isFormDisplayed()) {
+			if (mainPage.getTitle().contentEquals(expectedTitle)) {
 
-				System.out.println("Test Passed! Get Quote Form is getting displayed");
-				// click on sign in
-				mainPage.clickSignIn();
-				// enter username
-				mainPage.enterUserName();
-				// enter password
-				mainPage.enterPassword();
-				// click on login
-				mainPage.clickLoginButton();
-				if (mainPage.getTitle().contentEquals(expectedLoginPageTitle)) {
+				System.out.println("Login Page is dispalyed");
 
-					System.out.println("Test passed! User is able to login");
+				// click on go button
+				mainPage.clickGoButton();
+				if (mainPage.isFormDisplayed()) {
+
+					System.out.println("Test Passed! Get Quote Form is getting displayed");
+
+					// click on sign in
+					mainPage.clickSignIn();
+					// Checking valid login
+					// enter username
+					mainPage.enterUserName("kalijewicz@cure.com");
+					// enter password
+					mainPage.enterPassword("Test123");
+					// click on login
+					mainPage.clickLoginButton();
+
+					if (mainPage.getTitle().contentEquals(expectedLoginPageTitle)) {
+
+						System.out.println("Test passed! User is able to login");
+						mainPage.clickLogoutButton();
+					}
+
+				} else {
+					System.out.println("Test Failed");
 				}
 			}
-		} else {
-			System.out.println("Test Failed");
-		}
+			// click on sign in
+			mainPage.clickSignIn();
+			// checking invalid login
+			// enter username
+			mainPage.enterUserName("invalidemail@cure.com");
+			// enter password
+			mainPage.enterPassword("invalid@123");
+			// click on login
+			mainPage.clickLoginButton();
 
-		driver.close();
+			if (expectedErrorMsg.equalsIgnoreCase(mainPage.getText())) {
+
+				System.out.println(
+						"User has entered Invalid Credentials and getting error message as " + mainPage.getText());
+
+			} else {
+				System.out.println("Error message is not displayed");
+			}
+			driver.close();
+
+		} catch (
+
+		Exception e) {
+			System.out.println("Test Failed=" + e.getMessage());
+
+		}
 
 	}
 

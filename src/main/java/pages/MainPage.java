@@ -9,6 +9,10 @@ public class MainPage extends LoginPage {
 	@FindBy(className = "quote-form")
 
 	WebElement getQuoteFormBox;
+	
+	@FindBy(id="loginbox_message")
+
+	WebElement loginMessage;
 
 	public MainPage(WebDriver driver) {
 		super(driver);
@@ -19,6 +23,11 @@ public class MainPage extends LoginPage {
 	public boolean isFormDisplayed() {
 
 		return getQuoteFormBox.isDisplayed();
+	}
+
+	public String getText() {
+		
+		return loginMessage.getText();
 	}
 
 

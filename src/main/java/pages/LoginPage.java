@@ -9,26 +9,29 @@ public class LoginPage {
 
 	WebDriver driver;
 
-	@FindBy(className = "go-btn")
+	@FindBy(id="ctl00_MainContent_A1")
 
 	WebElement goButton;
 
 	@FindBy(xpath = "//a[.='SIGN IN']")
 
 	WebElement signInLink;
-	
-	@FindBy(id="txtEmailAddress_MultiLogin")
+
+	@FindBy(id = "txtEmailAddress_MultiLogin")
 
 	WebElement userNameBox;
-	
-	@FindBy(id="txtPassword_MultiLogin")
+
+	@FindBy(id = "txtPassword_MultiLogin")
 
 	WebElement passwordBox;
-	
+
 	@FindBy(xpath = "//a[.='Login']")
 
 	WebElement loginButton;
-	
+
+	@FindBy(xpath = "//button[.='Logout']")
+
+	WebElement logoutButton;
 
 	public LoginPage(WebDriver driver) {
 
@@ -56,21 +59,26 @@ public class LoginPage {
 	public void clickSignIn() {
 		signInLink.click();
 	}
+
+	// enter user name
+
+	public void enterUserName(String userName) {
 	
-	//enter user name
-	
-	public void enterUserName() {
-		userNameBox.sendKeys("kalijewicz@cure.com");
+		userNameBox.sendKeys(userName);
 	}
-	
-	//enter password
-	public void enterPassword() {
-		passwordBox.sendKeys("Test123");
+
+	// enter password
+	public void enterPassword(String password) {
+		
+		passwordBox.sendKeys(password);
 	}
-	
+
 	public void clickLoginButton() {
 		loginButton.click();
 	}
-	
-	
+
+	public void clickLogoutButton() {
+		logoutButton.click();
+	}
+
 }
